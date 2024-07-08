@@ -1,0 +1,13 @@
+{
+  "name": "reactauto",
+  "version": "1.0.0",
+  "description": "This is a library used to automate react boiler plate code",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "author": "Nishant Paliwal",
+  "license": "ISC"
+}
