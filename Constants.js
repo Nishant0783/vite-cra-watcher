@@ -1,0 +1,1 @@
+export const SUPPORTED_EXTENSIONS =  ['.jsx', '.js', '.tsx', '.ts'];
