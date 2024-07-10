@@ -2,18 +2,27 @@
 import fs from 'fs';
 import path from 'path';
 import { toPascalCase } from './util/toPascalCase.js';
-import { createCompDir, createPagesDir } from './util/createRequireDir.js'; // Import functions to create directories
-import { SUPPORTED_EXTENSIONS } from './Constants.js';
 
-const baseComponentsDir = './src/components' || './src/Components';
-const basePagesDir = './src/pages' || './src/Pages';
+import { DIRECTORIES, SUPPORTED_EXTENSIONS } from './Constants.js';
+
+
+let baseDirectories = [];
+
+DIRECTORIES.forEach(dir => {
+  if (fs.existsSync(dir.path)) {
+    baseDirectories.push(dir.path);
+  } else if (fs.existsSync(dir.altPath)) {
+    baseDirectories.push(dir.altPath);
+  } else {
+    dir.createDir();
+    baseDirectories.push(dir.path);
+  }
+});
 
 const createBoilerPlate = (filePath) => {
-  console.log("Generating boilerplate");
   const fileName = path.basename(filePath, path.extname(filePath));
   const pascalCaseName = toPascalCase(fileName);
-
-  const boilerPlate = `import React from 'react';
+  return `import React from 'react';
 
 const ${pascalCaseName} = () => {
   return (
@@ -25,92 +34,50 @@ const ${pascalCaseName} = () => {
 
 export default ${pascalCaseName};
 `;
-
-  return boilerPlate;
 }
 
 const addBoilerPlate = (filePath) => {
   const fileExt = path.extname(filePath);
-  if (!SUPPORTED_EXTENSIONS.includes(fileExt)) {
-    console.log(`Skipping ${filePath} (unsupported file extension)`);
-    return;
-  }
+  if (!SUPPORTED_EXTENSIONS.includes(fileExt)) return;
 
   const fileContent = fs.readFileSync(filePath, 'utf8').trim();
-  if (fileContent.length > 0) {
-    console.log(`Skipping ${filePath} (file already has content)`);
-    return;
-  }
+  if (fileContent.length > 0) return;
 
   const boilerPlate = createBoilerPlate(filePath);
-  fs.writeFile(filePath, boilerPlate, (err) => {
-    if (err) {
-      console.error(`Error adding boilerplate in file: ${filePath}`, err);
-    } else {
-      console.log(`Boilerplate added successfully in file: ${filePath}`);
-    }
-  });
+  fs.writeFileSync(filePath, boilerPlate);
 }
 
 const watchDirectory = (dirPath) => {
-  console.log(`Watching directory: ${dirPath}`);
   fs.watch(dirPath, { recursive: true }, (eventType, filename) => {
-    if (filename) {
+    if (filename && eventType === 'rename') {
       const filePath = path.join(dirPath, filename);
-      if (eventType === 'rename') {
-        fs.access(filePath, fs.constants.F_OK, (err) => {
-          if (!err) {
-            handleFileChange(filePath);
-          } else {
-            console.error(`Error accessing file: ${filePath}`, err);
-          }
-        });
+      if (fs.existsSync(filePath)) {
+        handleFileChange(filePath);
       }
     }
   });
 }
 
 const handleFileChange = (filePath) => {
-  console.log(`File added: ${filePath}`);
   addBoilerPlate(filePath);
 }
 
 const initializeWatching = () => {
-  console.log("Watching initialised");
-
-  // Check if components directory exists, else create it
-  if (fs.existsSync(baseComponentsDir)) {
-    fs.readdir(baseComponentsDir, (err, files) => {
-      if (err) {
-        console.error(`Error reading directory ${baseComponentsDir}:`, err);
-        return;
-      }
-      files.forEach((file) => {
-        const filePath = path.join(baseComponentsDir, file);
-        addBoilerPlate(filePath);
+  baseDirectories.forEach(baseDir => {
+    if (fs.existsSync(baseDir)) {
+      fs.readdir(baseDir, (err, files) => {
+        if (err) {
+          console.error(`Error reading directory ${baseDir}:`, err);
+          return;
+        }
+        files.forEach(file => {
+          const filePath = path.join(baseDir, file);
+          addBoilerPlate(filePath);
+        });
       });
-    });
-    watchDirectory(baseComponentsDir); // Start watching directory if it exists
-  } else {
-    createCompDir(); // Create components directory if it doesn't exist
-  }
-
-  // Check if pages directory exists, else create it
-  if (fs.existsSync(basePagesDir)) {
-    fs.readdir(basePagesDir, (err, files) => {
-      if (err) {
-        console.error(`Error reading directory ${basePagesDir}:`, err);
-        return;
-      }
-      files.forEach((file) => { 
-        const filePath = path.join(basePagesDir, file);
-        addBoilerPlate(filePath);
-      });
-    });
-    watchDirectory(basePagesDir); // Start watching directory if it exists
-  } else {
-    createPagesDir(); // Create pages directory if it doesn't exist
-  }
+      watchDirectory(baseDir);
+    }
+  });
 }
 
 initializeWatching();
