@@ -1,5 +1,5 @@
 {
-  "name": "Vite-CRA-automate",
+  "name": "vite-cra-watcher",
   "version": "1.0.0",
   "description": "This is a library used to automate react boiler plate code",
   "main": "index.js",
