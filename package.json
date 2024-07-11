@@ -1,6 +1,6 @@
 {
   "name": "vite-cra-watcher",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "This is a library used to automate react boiler plate code",
   "main": "index.js",
   "type": "module",
@@ -8,8 +8,7 @@
     "vite-cra-watcher": "./index.js"
   },
   "scripts": {
-    "start": "nodemon .",
-    "postinstall": "node index.js"
+    "start": "nodemon ."
   },
   "author": "Nishant Paliwal",
   "license": "ISC",
