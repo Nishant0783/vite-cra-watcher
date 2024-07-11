@@ -1,6 +1,6 @@
 {
   "name": "reactauto",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "This is a library used to automate react boiler plate code",
   "main": "index.js",
   "type": "module",
@@ -8,7 +8,8 @@
     "vite-cra-watcher": "./index.js"
   },
   "scripts": {
-    "start": "nodemon ."
+    "start": "nodemon .",
+    "postinstall": "node index.js"
   },
   "author": "Nishant Paliwal",
   "license": "ISC",
