@@ -4,6 +4,9 @@
   "description": "This is a library used to automate react boiler plate code",
   "main": "index.js",
   "type": "module",
+  "bin": {
+    "vite-cra-watcher": "./index.js"
+  },
   "scripts": {
     "start": "nodemon ."
   },
