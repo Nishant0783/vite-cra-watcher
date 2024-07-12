@@ -1,25 +1,37 @@
 {
   "name": "vite-cra-watcher",
-  "version": "1.0.2",
-  "description": "This is a library used to automate react boiler plate code",
+  "version": "1.0.4",
+  "description": "A library to automate React boilerplate code",
   "main": "index.js",
   "type": "module",
   "bin": {
     "vite-cra-watcher": "./index.js"
   },
   "scripts": {
-    "start": "nodemon .",
-    "postinstall": "node index.js"
+    "start:watcher": "vite-cra-watcher"
   },
   "author": "Nishant Paliwal",
   "license": "ISC",
-  "dependencies": {
-    "nodemon": "^3.1.4"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nishant0783/vite-cra-watcher.git"
   },
+  "keywords": [
+    "react",
+    "boilerplate",
+    "watcher",
+    "automation"
+  ],
+  "bugs": {
+    "url": "https://github.com/Nishant0783/vite-cra-watcher/issues"
+  },
+  "homepage": "https://github.com/Nishant0783/vite-cra-watcher#readme",
+  "dependencies": {},
   "devDependencies": {
+    "jest": "^29.7.0",
     "@babel/core": "^7.24.7",
     "@babel/preset-env": "^7.24.7",
     "@babel/preset-react": "^7.24.7",
-    "babel-jest": "^29.7.0"
+    "nodemon": "^3.1.4"
   }
 }
