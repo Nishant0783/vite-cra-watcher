@@ -15,18 +15,23 @@ You can install the library using npm:
 
 ```bash
 npm install vite-cra-watcher
+```
 
 ## Usage
 
 1. Add the script to package.json file
 
+```bash
 "scripts": {
   "start:watcher": "vite-cra-watcher"
 }
+```
 
 2. Run the following command to start the watcher
 
+```bash
 npm run start:watcher
+```
 
 ## Contributing
 
