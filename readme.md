@@ -1,4 +1,4 @@
-# React Boilerplate Generator
+# Vite CRA Watcher
 
 vite-cra-watcher is an npm library that watches for new files in your React application's `components` or `pages` directories and automatically adds boilerplate code to them. This ensures that all new components and pages have a consistent starting structure.
 
