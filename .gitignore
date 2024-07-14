@@ -6,3 +6,4 @@ test.js
 .babelrc
 .index.test.js
 .jest.config.cjs
+vite.config.js

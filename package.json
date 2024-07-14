@@ -8,6 +8,7 @@
     "vite-cra-watcher": "./index.js"
   },
   "scripts": {
+    "start": "nodemon .",
     "start:watcher": "vite-cra-watcher"
   },
   "author": "Nishant Paliwal",

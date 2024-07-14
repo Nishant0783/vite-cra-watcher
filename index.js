@@ -4,6 +4,7 @@ import path from 'path';
 import { toPascalCase } from './util/toPascalCase.js';
 
 import { DIRECTORIES, SUPPORTED_EXTENSIONS } from './Constants.js';
+import { clearViteDefaults, isViteApp } from './util/viteConf.js';
 
 
 let baseDirectories = [];
@@ -63,7 +64,12 @@ const handleFileChange = (filePath) => {
 }
 
 const initializeWatching = () => {
+  // Check for vite app and then apply changes
+  if(isViteApp()) {
+    clearViteDefaults();
+  }
   baseDirectories.forEach(baseDir => {
+    console.log("Base dir: ", baseDir);
     if (fs.existsSync(baseDir)) {
       fs.readdir(baseDir, (err, files) => {
         if (err) {
