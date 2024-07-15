@@ -5,6 +5,7 @@ import { toPascalCase } from './util/toPascalCase.js';
 
 import { DIRECTORIES, SUPPORTED_EXTENSIONS } from './Constants.js';
 import { clearViteDefaults, isViteApp } from './util/viteConf.js';
+import { clearCraDefaults, isCra } from './util/craConf.js';
 
 
 let baseDirectories = [];
@@ -67,6 +68,10 @@ const initializeWatching = () => {
   // Check for vite app and then apply changes
   if(isViteApp()) {
     clearViteDefaults();
+  } else if(isCra()) {
+    clearCraDefaults();
+  } else {
+    console.log("Clear default features is only available for react apps created with Vite or CRA")
   }
   baseDirectories.forEach(baseDir => {
     console.log("Base dir: ", baseDir);

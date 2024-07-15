@@ -4,20 +4,21 @@ import path from 'path';
 // Get the current working directory
 const rootDir = process.cwd();
 const srcDir = path.join(rootDir, 'src');
-const flagFilePath = path.join(rootDir, '.viteDefaultsClear')
+const publicDir = path.join(rootDir, 'public')
+const flagFilePath = path.join(rootDir, '.craDefaultsClear')
 
-export function isViteApp() {
-    const filePath = path.join(rootDir, 'vite.config.js');
+export function isCra() {
+    const filePath = path.join(publicDir, 'index.html');
     if (fs.existsSync(filePath)) {
-        console.log("You are working on a react app created with Vite.");
+        console.log("You are working on a react app created with Create React App.");
         return true;
     }
     return false;
 }
 
-export function clearViteDefaults() {
+export function clearCraDefaults() {
     if (fs.existsSync(flagFilePath)) {
-        console.log("Vite defaults have already been cleared.");
+        console.log("CRA defaults have already been cleared.");
         return;
     }
 
@@ -48,5 +49,5 @@ export function clearViteDefaults() {
     }
 
     // Create the flag file to indicate that defaults have been cleared
-    fs.writeFileSync(flagFilePath, 'Vite defaults cleared');
+    fs.writeFileSync(flagFilePath, 'CRA defaults cleared');
 }
