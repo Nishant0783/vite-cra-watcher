@@ -1,6 +1,6 @@
 # Vite CRA Watcher
 
-vite-cra-watcher is an npm library that watches for new files in your React application's `components` or `pages` directories and automatically adds boilerplate code to them. This ensures that all new components and pages have a consistent starting structure.
+Discover the power of automation in your React projects with vite-cra-watcher ! This cutting-edge npm library is designed to streamline your workflow by automatically creating necessary directories, adding boilerplate code, and cleaning up default files. With the latest update, it now smartly detects your toolchain (Vite or CRA) and cleans up unnecessary code from your App.jsx or App.js file, ensuring you're ready to start coding right away. Boost your productivity and maintain a consistent project structure effortlessly. Check it out and experience the difference!
 
 ## Features - 1.x.x
 
