@@ -1,34 +1,35 @@
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
-// Convert import.meta.url to __dirname
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Get the root directory
-const rootDir = path.resolve(__dirname, '../');
-
-// Get the src directory
+// Get the current working directory
+const rootDir = process.cwd();
 const srcDir = path.join(rootDir, 'src');
+const flagFilePath = path.join(rootDir, '.viteDefaultsClear')
 
 export function isViteApp() {
     const filePath = path.join(rootDir, 'vite.config.js');
-    console.log(`Checking for Vite config at: ${filePath}`); // Debug log
     if (fs.existsSync(filePath)) {
         console.log("You are working on a react app created with Vite.");
         return true;
     }
-    console.log("Not a Vite app."); // Debug log
     return false;
 }
 
 export function clearViteDefaults() {
+    if (fs.existsSync(flagFilePath)) {
+        console.log("Vite defaults have already been cleared.");
+        return;
+    }
+
     const appcss = path.join(srcDir, 'App.css');
     console.log(`Checking for App.css at: ${appcss}`); // Debug log
     if (fs.existsSync(appcss)) {
-        fs.writeFileSync(appcss, '', 'utf8');
-        console.log("App.css has been cleared.");
+        try {
+            fs.writeFileSync(appcss, '', 'utf8');
+            console.log("App.css has been cleared.");
+        } catch (err) {
+            console.error(`Failed to clear App.css: ${err}`);
+        }
     } else {
         console.log("App.css not found.");
     }
@@ -36,9 +37,16 @@ export function clearViteDefaults() {
     const indexcss = path.join(srcDir, 'index.css');
     console.log(`Checking for index.css at: ${indexcss}`); // Debug log
     if (fs.existsSync(indexcss)) {
-        fs.writeFileSync(indexcss, '', 'utf8');
-        console.log("index.css has been cleared.");
+        try {
+            fs.writeFileSync(indexcss, '', 'utf8');
+            console.log("index.css has been cleared.");
+        } catch (err) {
+            console.error(`Failed to clear index.css: ${err}`);
+        }
     } else {
         console.log("index.css not found.");
     }
+
+    // Create the flag file to indicate that defaults have been cleared
+    fs.writeFileSync(flagFilePath, 'Defaults cleared');
 }
