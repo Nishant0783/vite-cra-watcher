@@ -10,8 +10,9 @@ vite-cra-watcher is an npm library that watches for new files in your React appl
 - Ensures all new components and pages follow a consistent structure.
 
 ## Features - 2.x.x
-- Automatically detects whether the react app is created with ``Vite`` or `CRA`.
+- Automatically detects whether the react app is created with `Vite` or `CRA`.
 - Clear up `App.css` and `index.css` file present in `src` directory.
+- Clear all the unnecessary code in `App.jsx ` or `App.js`.
 
 ## Installation
 
