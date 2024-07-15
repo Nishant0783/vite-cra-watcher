@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { updateApp } from './updateApp.js';
 
 // Get the current working directory
 const rootDir = process.cwd();
@@ -46,6 +47,9 @@ export function clearViteDefaults() {
     } else {
         console.log("index.css not found.");
     }
+
+    const appPath = path.join(srcDir, 'App.jsx')
+    updateApp(appPath)
 
     // Create the flag file to indicate that defaults have been cleared
     fs.writeFileSync(flagFilePath, 'Vite defaults cleared');
